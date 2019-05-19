@@ -1,0 +1,54 @@
+.ms-header {
+    border-bottom: 1px solid black;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.ms-text-center {
+    text-align: center;
+}
+
+.ms-space-me-top {
+    padding-top: 1rem;
+}
+
+.ms-space-me-bottom {
+    padding-bottom: 1rem;
+}
+
+.ms-space-me-top-bottom {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.ms-space-me-left-right {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.ms-hover:hover {
+    cursor: pointer;
+    background-color: #f1f1f1;
+    transition: .25s ease-in-out;
+}
+
+.ms-hover:active {
+    cursor: pointer;
+    background-color: #f1f1f1;
+}
+
+.ms-textarea {
+    resize: none;
+}
+
+.ms-translation-container {
+    background-color: #f1f1f1;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.ms-nav-active {
+    background-color: #f1f1f1;
+}
