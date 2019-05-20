@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transpotting</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+</head>
+<body>
+    <div class="container ms-header">
+        <div class="row">
+            <div class="col-sm ">
+            <h1>Transpotting</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row ms-space-me-top">
+            <div class="ms-nav">
+                <div class="col-sm ms-text-center ms-hover ms-space-me-top-bottom ms-nav-active">
+                Translate
+                </div>
+                <div class="col-sm  ms-text-center ms-hover ms-space-me-top-bottom">
+                About
+                </div>
+                <div class="col-sm  ms-text-center ms-hover ms-space-me-top-bottom">
+                Contact
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container ms-translation-container">
+        <form>
+          
+            <div class="container ms-space-me-top-bottom">
+                <div class="row">
+                    <div class="custom-control custom-switch ms-space-me-top-bottom">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <label class="custom-control-label" for="customSwitch1">Auto Detect Language</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Language</label>
+                <select class="form-control ms-language-native">
+                    <option>Default select</option>
+                </select>
+            </div>
+            <div class="form-group">
+                    <label for="exampleInputEmail1">Translation Language</label>
+                    <select class="form-control ms-language-translation">
+                        <option>Default select</option>
+                    </select>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm">
+                        <textarea class="form-control ms-textarea" id="documentToTranslate" rows="5"></textarea>
+                    </div>
+                    <div class="col-sm">
+                        <textarea class="form-control ms-textarea" id="documentTranslation" placeholder="Translation" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="ms-text-center">
+               <small class="ms-space-me-top-bottom">Press enter to translate</small>
+            </div>
+        </form> 
+    </div>
+</body>
+<script type="module" src="/js/app.js"></script>
+</html>

@@ -18,4 +18,5 @@ const ListControl = (() => {
 
     return listInit;
 })();
+
 export default ListControl;

@@ -26,7 +26,7 @@
     padding-right: 1rem;
 }
 
-.ms-hover:hover {
+.ms-hover:not(.ms-nav-active):hover {
     cursor: pointer;
     background-color: #f1f1f1;
     transition: .25s ease-in-out;
@@ -39,6 +39,7 @@
 
 .ms-textarea {
     resize: none;
+    /* overflow: hidden; */
 }
 
 .ms-translation-container {
@@ -50,5 +51,11 @@
 }
 
 .ms-nav-active {
-    background-color: #f1f1f1;
+    background-color: #007bff;
+    color: #f1f1f1;
+}
+
+.ms-nav {
+    display: flex;
+    width: 100%;
 }
