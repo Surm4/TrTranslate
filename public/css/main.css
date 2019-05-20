@@ -61,7 +61,8 @@
 
 .ms-divarea {
     max-width: 100%;
-    min-height: 135px; 
+    min-height: 135px;
+    height: 100%; 
     flex-basis: 0;
     flex-grow: 1;
     padding: .375rem .75rem;

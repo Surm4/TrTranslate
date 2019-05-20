@@ -6,7 +6,7 @@ const TextAreaControl = () => {
     const initialTextareaHeight = documentToTranslate.scrollHeight;
     let oldTextareaHeight = 0;
     const handleTyping = (e) => {
-        documentTranslation.style.height = `${documentToTranslate.clientHeight}px`;
+        // add translating request
     };
 };
 
