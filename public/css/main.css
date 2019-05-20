@@ -1,3 +1,7 @@
+.col-sm.ms-max-50 {
+    max-width: 50%; /* bootstrap override */
+}
+
 .ms-header {
     border-bottom: 1px solid black;
     padding-top: 1rem;
@@ -37,11 +41,6 @@
     background-color: #f1f1f1;
 }
 
-.ms-textarea {
-    resize: none;
-    /* overflow: hidden; */
-}
-
 .ms-translation-container {
     background-color: #f1f1f1;
     padding-top: 2rem;
@@ -59,3 +58,25 @@
     display: flex;
     width: 100%;
 }
+
+.ms-divarea {
+    max-width: 100%;
+    min-height: 135px; 
+    flex-basis: 0;
+    flex-grow: 1;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.ms-divarea.readonly:empty::before {
+    content: attr(placeholder);
+}
+
+
