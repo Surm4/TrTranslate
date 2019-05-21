@@ -9,16 +9,17 @@ const TranslationControl = (() => {
     const translationWaiterElement = ".translating";
     const translationWaiterElement2 = ".empty";
     const googleCharactersLimit = 5000;
-    const translatedDocumentArray = [];
+    let translatedDocumentArray = [];
     const options = {};
 
     const sendTranslationBack = async (documentToTranslate) => {
+        translatedDocumentArray = [];
         const {page, browser} = await prepareWorkshop();
         // console.log(page, browser)
         // console.log(documentToTranslate);
         const translationDone = await translateDocument(documentToTranslate, page, browser);
         // console.log(translationDone);
-        return Promise.resolve(translationDone);
+        return translationDone;
     }
 
     const prepareWorkshop = async () => {
@@ -35,7 +36,7 @@ const TranslationControl = (() => {
     const translateDocument = async (documentToTranslate, page, browser) => {
         const documentToTranslateFragments = documentToTranslate.match(new RegExp(`.{1,${googleCharactersLimit}}`, "g"));
         await automate(documentToTranslateFragments, page);
-        // await browser.close();
+        await browser.close();
         return stringJoin(translatedDocumentArray);
     }
 

@@ -9,9 +9,12 @@ const TextAreaControl = () => {
     
     body.addEventListener("keyup", (e) => { handleEnterPress(e) });
 
-    const handleEnterPress = (e) => {
+    const handleEnterPress = async (e) => {
         documentToTranslateText = documentToTranslate.innerText;
-        assertAreEqualStringIgnoreCase(e.key, pressEventKey) && controlKeyEnabled(e) ? getTranslatedDocument().then(data => attachTranslation(data)) : "";
+        if (assertAreEqualStringIgnoreCase(e.key, pressEventKey) && controlKeyEnabled(e)) {
+           const tranlatedDoc = await getTranslatedDocument();
+           attachTranslation(tranlatedDoc);
+        }  
     };
 
     const assertAreEqualStringIgnoreCase = (a, b) => a.match(new RegExp(b, "i")); 
@@ -23,8 +26,8 @@ const TextAreaControl = () => {
     const getTranslatedDocument = async () => {
         const fullUrl = getFullPath();
         const response = await fetch(fullUrl);
-        const data = response.json();
-        return data;
+        const data = await response.json();
+        return new Promise(resolve=> resolve(data));
     };
 
     const attachTranslation = (data) => {
