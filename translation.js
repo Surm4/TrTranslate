@@ -10,21 +10,42 @@ const TranslationControl = (() => {
     const translationWaiterElement2 = ".empty";
     const googleCharactersLimit = 5000;
     let translatedDocumentArray = [];
+    let browserBusy = false;
     const options = {};
+    const errorCodes = {
+        alreadyOpened: "MS_BROWSER_ALREADY_OPENED_ERROR",
+    };
+    let browser, page;
 
     const sendTranslationBack = async (documentToTranslate) => {
+        if (browserBusy) return errorCodes.alreadyOpened;
+
+        browserBusy = true;
         translatedDocumentArray = [];
-        const {page, browser} = await prepareWorkshop();
-        // console.log(page, browser)
-        // console.log(documentToTranslate);
+        await anyBrowserOpened();
         const translationDone = await translateDocument(documentToTranslate, page, browser);
-        // console.log(translationDone);
+        browserBusy = false;
+        
         return translationDone;
     }
 
+    const anyBrowserOpened = async () => {
+        if (!browser) await prepareWorkshop();
+    };
+
+    const close = async () => {
+         try {
+            await browser.close();
+             return "OKCLOSED";
+         } catch {
+             console.warn("Browser already closed");
+             return "OK";
+         }
+    }
+
     const prepareWorkshop = async () => {
-        const browser = await puppeteer.launch({ headless: shouldBeHeadless });
-        const page = await browser.newPage();
+        browser = await puppeteer.launch({ headless: shouldBeHeadless });
+        page = await browser.newPage();
         await page.goto(googleAddress);
         await page.addScriptTag({path: `${__dirname}/public/js-attachments/selectors-validate.js`});
         return {
@@ -33,10 +54,9 @@ const TranslationControl = (() => {
         };
     }
 
-    const translateDocument = async (documentToTranslate, page, browser) => {
+    const translateDocument = async (documentToTranslate, page) => {
         const documentToTranslateFragments = documentToTranslate.match(new RegExp(`.{1,${googleCharactersLimit}}`, "g"));
         await automate(documentToTranslateFragments, page);
-        await browser.close();
         return stringJoin(translatedDocumentArray);
     }
 
@@ -48,9 +68,7 @@ const TranslationControl = (() => {
         for (let documentToTranslateFragment of documentToTranslateFragments) {
             /* Write into input */
             await page.evaluate((sourceDocumentElement, sourceDocumentElementOrigin, documentToTranslateFragment) => {
-                if (sourceDocumentElement === sourceDocumentElementOrigin) {
-                    sourceDocumentElement = document.querySelector(sourceDocumentElement);
-                }
+                sourceDocumentElement = selectorsValidate(sourceDocumentElement, sourceDocumentElementOrigin);
                 sourceDocumentElement.value = documentToTranslateFragment;
             }, sourceDocumentElement, sourceDocumentElementOrigin, documentToTranslateFragment);
             /* Wait... */
@@ -60,9 +78,7 @@ const TranslationControl = (() => {
             await page.waitFor(1000); //safe typing timeout to repair
             /* Get data */
             let translationOutput = await page.evaluate((translationDocumentElement, translationDocumentElementOrigin) => {
-                if (translationDocumentElement === translationDocumentElementOrigin) {
-                    translationDocumentElement = document.querySelector(translationDocumentElement);
-                }
+                translationDocumentElement = selectorsValidate(translationDocumentElement, translationDocumentElementOrigin);
                 return Promise.resolve(translationDocumentElement.innerText);
             }, translationDocumentElement, translationDocumentElementOrigin);
             translatedDocumentArray.push(translationOutput);
@@ -71,7 +87,8 @@ const TranslationControl = (() => {
     };
 
     return {
-        sendTranslationBack: sendTranslationBack
+        sendTranslationBack: sendTranslationBack,
+        close: close
     };
 })();
 module.exports.TranslationControl = TranslationControl;
