@@ -13,6 +13,7 @@ const ServerControl = (() => {
     app.get('/navigation-ui', (req, res) => res.sendFile(`${__dirname}/public/js/navigation-ui.js`));
     app.get('/textarea-control', (req, res) => res.sendFile(`${__dirname}/public/js/textarea-control.js`));
     app.get('/unloading', (req, res) => res.sendFile(`${__dirname}/public/js/unloading.js`));
+    app.get('/getlist', async (req, res) => res.jsonp(await translationControl.COUNTRY_LIST_EN));
     app.get('/translation', async (req, res) => res.jsonp(await translationControl.sendTranslationBack(req.query.text)));
     app.get('/close', async (req, res) => res.jsonp(await translationControl.close()));
 

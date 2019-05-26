@@ -41,7 +41,6 @@ const TextAreaControl = () => {
     };
 
     const isError = (data) => {
-
         return data === errorCode ? true : false;
     };
 
