@@ -14,6 +14,7 @@
         },
         "server" : {
             "req" : {
+                "indexWWW" : "/",
                 "translation" : "./translation.js",
                 "express" : "express",
                 "puppeteer" : "puppeteer"
@@ -22,7 +23,8 @@
                 "listControl" : "/public/js/list-control.js",
                 "navigationUi" : "/public/js/navigation-ui.js",
                 "textareaControl" : "/public/js/textarea-control.js",
-                "unloading" : "/public/js/unloading.js"
+                "unloading" : "/public/js/unloading.js",
+                "indexWWW" : "/public/www/index.html"
             }
         }
     },
