@@ -1,9 +1,11 @@
 const ListControl = async function() {
+    const configurationReq = await fetch("/configuration");
+    const configuration = await configurationReq.json();
     const COUNTRY_LIST_EN_req = await fetch("/getlist");
     const COUNTRY_LIST_EN = await COUNTRY_LIST_EN_req.json();
 
-    document.querySelector(".ms-language-native").addEventListener("change", (e) => { handleLanguageChange(e.target.value, "from_lang") });
-    document.querySelector(".ms-language-translation").addEventListener("change", (e) => { handleLanguageChange(e.target.value, "to_lang") });
+    document.querySelector(".ms-language-native").addEventListener("change", (e) => { handleLanguageChange(e.target.value, configuration.langType.fromLang) });
+    document.querySelector(".ms-language-translation").addEventListener("change", (e) => { handleLanguageChange(e.target.value, configuration.langType.toLang) });
 
     const handleLanguageChange = (lang, langGoal) => {
         const langIndex = COUNTRY_LIST_EN.findIndex(el => el === lang);

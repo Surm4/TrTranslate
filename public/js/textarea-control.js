@@ -1,6 +1,7 @@
 const TextAreaControl = async () => {
     const configurationReq = await fetch("/configuration");
     const configuration = await configurationReq.json();
+ 
     const translationUrl = `${configuration.file.client.req.translationUrl}${configuration.file.client.req.translatonUrlQuery}`;
     const body = document.querySelector("body");
     const documentToTranslate = document.querySelector("#documentToTranslate");
@@ -30,8 +31,24 @@ const TextAreaControl = async () => {
     const assertAreEqualStringIgnoreCase = (a, b) => a.match(new RegExp(b, "i")); 
 
     const controlKeyEnabled = (e) => e.ctrlKey;
-    
-    const getFullPath = () => encodeURI(`${translationUrl}${documentToTranslateText}`);
+
+    const getLangIds = () => {
+        return {
+            0: localStorage.getItem(configuration.langType.fromLang) || configuration.codeUtils.defaultLang.fromLangId,
+            1: localStorage.getItem(configuration.langType.toLang) || configuration.codeUtils.defaultLang.toLangId,
+        };
+    };  
+
+    /* 
+        @getFullPath() 
+        @1: passing document to translate
+        @2: current native language
+        @3: to translate lanugage 
+    */
+
+    const getFullPath = () => {
+        return encodeURI(`${translationUrl}${documentToTranslateText}${configuration.file.client.req.translationFromLangQuery}${getLangIds()[0]}${configuration.file.client.req.translationToLangQuery}${getLangIds()[1]}`);;
+    };
 
     const getTranslatedDocument = async () => {
         const fullUrl = getFullPath();

@@ -3,7 +3,7 @@ const TranslationControl = (() => {
     const puppeteer = require('puppeteer');
     
     const changeSourceLanguageFunctions = configuration.codeUtils.fromLangFunctions.split("|");
-    const changeTranslationLanguageFucntions =  configuration.codeUtils.toLangFunctions.split("|");
+    const changeTranslationLanguageFunctions =  configuration.codeUtils.toLangFunctions.split("|");
     const COUNTRY_LIST_PL = configuration.countryList.pl.split(",");
     const COUNTRY_LIST_EN = configuration.countryList.en.split(",");
 
@@ -21,7 +21,7 @@ const TranslationControl = (() => {
 
     let browser, page;
 
-    const sendTranslationBack = async (documentToTranslate) => {
+    const sendTranslationBack = async (documentToTranslate, ...langs) => {
         if (browserBusy) return configuration.msg.dev.code.alreadyOpened;
 
         browserBusy = true;
@@ -31,7 +31,7 @@ const TranslationControl = (() => {
         browserBusy = false;
         
         return translationDone;
-    }
+    };
 
     const anyBrowserOpened = async () => {
         if (!browser) await prepareWorkshop();
@@ -45,7 +45,7 @@ const TranslationControl = (() => {
              console.warn(configuration.msg.dev.warning.alreadyClosed);
              return configuration.msg.dev.code.OK_STATUS;
          }
-    }
+    };
 
     const prepareWorkshop = async () => {
         browser = await puppeteer.launch({ headless: shouldBeHeadless });
@@ -56,17 +56,17 @@ const TranslationControl = (() => {
             page: page,
             browser: browser
         };
-    }
+    };
 
     const translateDocument = async (documentToTranslate, page) => {
         const documentToTranslateFragments = documentToTranslate.match(new RegExp(`.{1,${googleCharactersLimit}}`, "g"));
         await automate(documentToTranslateFragments, page);
         return stringJoin(translatedDocumentArray);
-    }
+    };
 
     const stringJoin = (translatedDocumentArray) => {
         return translatedDocumentArray.join(" ");
-    }
+    };
 
     const automate = async (documentToTranslateFragments, page) => {
         for (let documentToTranslateFragment of documentToTranslateFragments) {
