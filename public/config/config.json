@@ -2,6 +2,7 @@
     "file" : {
         "client" : {
             "req" : {
+                "configuration" : "/configuration",
                 "listControl" : "/list-control",
                 "navigationUi" : "/navigation-ui",
                 "textareaControl" : "/textarea-control",
@@ -24,7 +25,8 @@
                 "navigationUi" : "/public/js/navigation-ui.js",
                 "textareaControl" : "/public/js/textarea-control.js",
                 "unloading" : "/public/js/unloading.js",
-                "indexWWW" : "/public/www/index.html"
+                "indexWWW" : "/public/www/index.html",
+                "configuration" : "/public/config/config.json"
             }
         }
     },

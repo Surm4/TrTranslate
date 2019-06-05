@@ -4,7 +4,7 @@ const ServerControl = (() => {
     const express = require("express");
     const app = express();
     const port = 80;
-
+    // console.log(configuration)
     app.listen(port, () => console.log(`${configuration.msg.dev.log.serverStarted}`));
     app.use(express.static(`${__dirname}${configuration.folders.client.public}`));
 
@@ -17,6 +17,7 @@ const ServerControl = (() => {
     app.get(`${configuration.file.client.req.getlist}`, async (req, res) => res.jsonp(await translationControl.COUNTRY_LIST_EN));
     app.get(`${configuration.file.client.req.translationUrl}`, async (req, res) => res.jsonp(await translationControl.sendTranslationBack(req.query.text)));
     app.get(`${configuration.file.client.req.close}`, async (req, res) => res.jsonp(await translationControl.close()));
+    app.get(`${configuration.file.client.req.configuration}`, async (req, res) => res.jsonp(configuration));
 
     return this;
 })();

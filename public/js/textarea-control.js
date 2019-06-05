@@ -1,19 +1,19 @@
-const TextAreaControl = () => {
-    const translationUrl = "/translation?text=";
-    const pressEventKey = "ENTER";
+const TextAreaControl = async () => {
+    const configurationReq = await fetch("/configuration");
+    const configuration = await configurationReq.json();
+    const translationUrl = `${configuration.file.client.req.translationUrl}${configuration.file.client.req.translatonUrlQuery}`;
     const body = document.querySelector("body");
     const documentToTranslate = document.querySelector("#documentToTranslate");
     const documentTranslation = document.querySelector("#documentTranslation");
     const loader = document.querySelector(".ms-loader");
     const overlay = document.querySelector(".ms-overlay");
     let documentToTranslateText;
-    const errorCode = "MS_BROWSER_ALREADY_OPENED_ERROR";
 
     body.addEventListener("keyup", (e) => { handleEnterPress(e) });
 
     const handleEnterPress = async (e) => {
         documentToTranslateText = documentToTranslate.innerText;
-        if (assertAreEqualStringIgnoreCase(e.key, pressEventKey) && controlKeyEnabled(e)) {
+        if (assertAreEqualStringIgnoreCase(e.key, configuration.codeUtils.keys.enter) && controlKeyEnabled(e)) {
             toggleLoading();
             const tranlatedDoc = await getTranslatedDocument();
             attachTranslation(tranlatedDoc);
@@ -41,12 +41,12 @@ const TextAreaControl = () => {
     };
 
     const isError = (data) => {
-        return data === errorCode ? true : false;
+        return data === configuration.msg.dev.code.alreadyOpened ? true : false;
     };
 
     const attachTranslation = (data) => {
         if (isError(data)) {
-            console.warn("textarea-control.js: Can't open again while translating")
+            console.warn(configuration.msg.dev.warning.cantOpenAgainWhileTranslating);
             return;
         }
         documentTranslation.innerHTML = data;
