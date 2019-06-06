@@ -3,7 +3,7 @@ const ServerControl = (() => {
     const configuration = require("./public/config/config.json");
     const express = require("express");
     const app = express();
-    const port = 80;
+    const port = configuration.codeUtils.port;
     app.listen(port, () => console.log(`${configuration.msg.dev.log.serverStarted}`));
     app.use(express.static(`${__dirname}${configuration.folders.client.public}`));
 

@@ -68,6 +68,7 @@
         }
     },
     "codeUtils" : {
+        "port" : 80,
         "googletranslateAddress" : "https://translate.google.com",
         "googleCharacterLimit" : 5000,
         "shouldBeHeadless" : true,
