@@ -84,7 +84,7 @@ const TranslationControl = (() => {
             let lang = await getLanguageFunctions();
             lang = lang.fromLangFunction;
             eval(lang);
-        }); // TODO: !IMPORTANT THERE SHOULD BE functions embeded IN PREPARE WORKSHOP
+        });
         await page.click(moreToLangButton);
         await page.waitFor(toLangListBlock);
         await page.evaluate(async () => {
