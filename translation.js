@@ -22,18 +22,19 @@ const TranslationControl = (() => {
     const googleCharactersLimit = 5000;
     let translatedDocumentArray = [];
     let browserBusy = false;
-    const options = {};
+    let fromLangFunction = changeSourceLanguageFunctions[configuration.codeUtils.defaultLang.fromLangId];
+    let toLangFunction = changeTranslationLanguageFunctions[configuration.codeUtils.defaultLang.toLangId];
 
     let browser, page;
 
     const sendTranslationBack = async (documentToTranslate, ...langs) => {
         if (browserBusy) return configuration.msg.dev.code.alreadyOpened;
-        const fromLangFunction = changeSourceLanguageFunctions[langs[0]];
-        const toLangFunction = changeTranslationLanguageFunctions[langs[1]];
+        fromLangFunction = changeSourceLanguageFunctions[langs[0]];
+        toLangFunction = changeTranslationLanguageFunctions[langs[1]];
         browserBusy = true;
         translatedDocumentArray = []; //clears latest translation
         await anyBrowserOpened();
-        const translationDone = await translateDocument(documentToTranslate, page, browser, fromLangFunction, toLangFunction);
+        const translationDone = await translateDocument(documentToTranslate, page, browser);
         browserBusy = false;
         
         return translationDone;
@@ -58,15 +59,16 @@ const TranslationControl = (() => {
         page = await browser.newPage();
         await page.goto(configuration.codeUtils.googletranslateAddress);
         await page.addScriptTag({path: `${__dirname}${configuration.folders.server.validateSelectorsAttachments}`});
+        await page.addScriptTag({path: `${__dirname}${configuration.folders.server.languageFunctions}`});
         return {
             page: page,
             browser: browser
         };
     };
 
-    const translateDocument = async (documentToTranslate, page, fromLangFunction, toLangFunction) => {
+    const translateDocument = async (documentToTranslate, page) => {
         const documentToTranslateFragments = documentToTranslate.match(new RegExp(`.{1,${googleCharactersLimit}}`, "g"));
-        await automate(documentToTranslateFragments, page, fromLangFunction, toLangFunction);
+        await automate(documentToTranslateFragments, page);
         return stringJoin(translatedDocumentArray);
     };
 
@@ -78,14 +80,22 @@ const TranslationControl = (() => {
         await page.waitForSelector(moreFromLangButton);
         await page.click(moreFromLangButton);
         await page.waitFor(fromLangListBlock);
-        await page.evaluate((fromLangFunction) => eval(fromLangFunction)); // TODO: !IMPORTANT THERE SHOULD BE functions embeded IN PREPARE WORKSHOP
+        await page.evaluate(async () => {
+            let lang = await getLanguageFunctions();
+            lang = lang.fromLangFunction;
+            eval(lang);
+        }); // TODO: !IMPORTANT THERE SHOULD BE functions embeded IN PREPARE WORKSHOP
         await page.click(moreToLangButton);
         await page.waitFor(toLangListBlock);
-        await page.evaluate((t) => {eval(toLangFunction)});
+        await page.evaluate(async () => {
+            let lang = await getLanguageFunctions();
+            lang = lang.toLangFunction;
+            eval(lang);
+        });
         return configuration.msg.dev.code.OK_STATUS;
     };
 
-    const automate = async (documentToTranslateFragments, page, fromLangFunction, toLangFunction) => {
+    const automate = async (documentToTranslateFragments, page) => {
         await setLanguages(page);
         for (let documentToTranslateFragment of documentToTranslateFragments) {
             /* Write into input */
@@ -108,10 +118,18 @@ const TranslationControl = (() => {
         return Promise.resolve(configuration.msg.dev.code.OK_STATUS);
     };
 
+    const getLangFunc = () => {
+        return {
+            fromLangFunction : fromLangFunction,
+            toLangFunction : toLangFunction
+        };
+    };
+
     return {
         sendTranslationBack: sendTranslationBack,
         close: close,
-        COUNTRY_LIST_EN: COUNTRY_LIST_EN
+        COUNTRY_LIST_EN : COUNTRY_LIST_EN,
+        langFunctions : getLangFunc
     };
 })();
 module.exports.TranslationControl = TranslationControl;

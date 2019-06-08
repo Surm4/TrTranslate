@@ -6,6 +6,7 @@
                 "listControl" : "/list-control",
                 "navigationUi" : "/navigation-ui",
                 "textareaControl" : "/textarea-control",
+                "langFunctions" : "/language-functions",
                 "unloading" : "/unloading",
                 "getlist" : "/getlist",
                 "close" : "/close",
@@ -40,7 +41,8 @@
             "public" : "/public" 
         },
         "server" : {
-            "validateSelectorsAttachments" : "/public/js-attachments/selectors-validate.js"
+            "validateSelectorsAttachments" : "/public/js-attachments/selectors-validate.js",
+            "languageFunctions" : "/public/js-attachments/language-functions.js"
         }
     },
     "langType" : {
