@@ -9,6 +9,7 @@ const ListControl = async function() {
 
     const handleLanguageChange = (lang, langGoal) => {
         const langIndex = COUNTRY_LIST_EN.findIndex(el => el === lang);
+        console.log(langIndex)
         localStorage.setItem(langGoal, langIndex);
     };
 
