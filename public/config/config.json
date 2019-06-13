@@ -32,7 +32,8 @@
                 "unloading" : "/public/js/unloading.js",
                 "configjs" : "/public/js/config.js",
                 "indexWWW" : "/public/www/index.html",
-                "configuration" : "/public/config/config.json"
+                "configuration" : "/public/config/config.json",
+                "icon" : "/public/www/icon/favicon.png"
             }
         }
     },

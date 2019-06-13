@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "express": "^4.17.0",
+    "express-favicon": "^2.0.1",
     "puppeteer": "^1.16.0"
   },
   "devDependencies": {},
