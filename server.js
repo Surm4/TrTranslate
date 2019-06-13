@@ -6,8 +6,6 @@ const ServerControl = (() => {
     const favicon = require('express-favicon');
     const port = configuration.codeUtils.port;
 
-
-
     app.listen(port, () => console.log(`${configuration.msg.dev.log.serverStarted}`));
     app.use(favicon(`${__dirname}${configuration.file.server.res.icon}`));
     app.use(express.static(`${__dirname}${configuration.folders.client.public}`));
@@ -18,10 +16,6 @@ const ServerControl = (() => {
     });
 
     app.get(`${configuration.file.server.req.indexWWW}`, (req, res) => res.sendFile(`${__dirname}${configuration.file.server.res.indexWWW}`));
-    // app.get(`${configuration.file.client.req.icon}`, (req, res) => {
-    //     res.sendStatus(200);
-    //     res.send();
-    // });
     app.get(`${configuration.file.client.req.listControl}`, (req, res) => res.sendFile(`${__dirname}${configuration.file.server.res.listControl}`));
     app.get(`${configuration.file.client.req.navigationUi}`, (req, res) => res.sendFile(`${__dirname}${configuration.file.server.res.navigationUi}`));
     app.get(`${configuration.file.client.req.textareaControl}`, (req, res) => res.sendFile(`${__dirname}${configuration.file.server.res.textareaControl}`));
