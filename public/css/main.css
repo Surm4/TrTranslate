@@ -6,6 +6,10 @@ body {
     transition: .5s ease;
 }
 
+.ms-display-none {
+    display: none;
+}
+
 .ms-header {
     border-bottom: 1px solid black;
     padding-top: 1rem;

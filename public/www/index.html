@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
-    <title>Transpotting</title>
+    <title>TrTranslate</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -18,20 +18,20 @@
         <div class="container ms-header">
             <div class="row">
                 <div class="col-sm ">
-                <h1>Transpotting</h1>
+                <h1>TrTranslate</h1>
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row ms-space-me-top">
                 <div class="ms-nav">
-                    <div class="col-sm ms-text-center ms-hover ms-space-me-top-bottom ms-nav-active">
+                    <div class="col-sm ms-text-center ms-hover ms-space-me-top-bottom ms-nav-active" data-lvl="0">
                     Translate
                     </div>
-                    <div class="col-sm  ms-text-center ms-hover ms-space-me-top-bottom">
+                    <div class="col-sm  ms-text-center ms-hover ms-space-me-top-bottom" data-lvl="1">
                     About
                     </div>
-                    <div class="col-sm  ms-text-center ms-hover ms-space-me-top-bottom">
+                    <div class="col-sm  ms-text-center ms-hover ms-space-me-top-bottom" data-lvl="2">
                     Contact
                     </div>
                 </div>
@@ -71,9 +71,15 @@
                     </div>
                 </div>
                 <div class="ms-text-center">
-                <small class="ms-space-me-top-bottom">Press enter to translate</small>
+                <small class="ms-space-me-top-bottom">Press ctrl + enter to translate</small>
                 </div>
             </form> 
+        </div>
+        <div class="container ms-translation-container ms-display-none">
+            test
+        </div>
+        <div class="container ms-translation-container ms-display-none">
+            test2
         </div>
     </div>
     <div class="ms-loader ms-opacity"></div>
