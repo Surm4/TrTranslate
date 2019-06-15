@@ -2,6 +2,10 @@
     max-width: 50%; /* bootstrap override */
 }
 
+.ms-auto {
+    margin: auto;
+}
+
 body {
     transition: .5s ease;
 }
@@ -57,6 +61,17 @@ body {
     padding-right: 2rem;
 }
 
+.ms-about-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.ms-about-subheader {
+    font-weight: 600;
+}
+
 .ms-nav-active {
     background-color: #007bff;
     color: #f1f1f1;
@@ -88,6 +103,22 @@ body {
     content: attr(placeholder);
 }
 
+.ms-perfect-translations::after {
+    position: absolute;
+    animation: dash .5s linear infinite alternate;
+    color: #007bff;
+    content: "";
+}
+
+@keyframes dash {
+    0% {
+        content: "";
+    }
+    100% {
+        content: "_";
+    }
+}
+
 @keyframes translation {
     0% { 
         content: "Translation";
@@ -102,7 +133,7 @@ body {
         content: "Translation...";
     }
   }
-  
+
   .ms-loader::before {
     animation: translation 1s linear infinite alternate;
     content: "";

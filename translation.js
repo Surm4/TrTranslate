@@ -8,7 +8,7 @@ const TranslationControl = (() => {
     const COUNTRY_LIST_PL = configuration.countryList.pl.split(",");
     const COUNTRY_LIST_EN = configuration.countryList.en.split(",");
 
-    const shouldBeHeadless = false;
+    const shouldBeHeadless = true;
     const sourceDocumentElementOrigin = "#source";
     const translationDocumentElementOrigin = ".translation";
     let sourceDocumentElement = "#source";
@@ -82,14 +82,17 @@ const TranslationControl = (() => {
         await page.waitFor(fromLangListBlock);
         await page.evaluate(async () => {
             let lang = await getLanguageFunctions();
-            lang = lang.fromLangFunction;
+            lang = lang["fromLangFunc"];
+            console.log(lang);
             eval(lang);
         });
         await page.click(moreToLangButton);
         await page.waitFor(toLangListBlock);
         await page.evaluate(async () => {
             let lang = await getLanguageFunctions();
-            lang = lang.toLangFunction;
+            console.log(lang)
+            lang = lang["toLangFunc"];
+            console.log(await getLanguageFunctions() + "test");
             eval(lang);
         });
         return configuration.msg.dev.code.OK_STATUS;

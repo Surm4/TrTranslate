@@ -9,7 +9,6 @@ const NavigationControl = () => {
         const lvl = el.dataset.lvl;
         if (!el.classList.contains("ms-nav-active")) {
             el.classList.add("ms-nav-active");
-            // navSection[lvl].classList.remove("ms-display-none");
             toggleSection(lvl);
             navItems.forEach(item => removeOtherItemsStyles(el, item));
             
