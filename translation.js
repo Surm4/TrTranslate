@@ -83,16 +83,13 @@ const TranslationControl = (() => {
         await page.evaluate(async () => {
             let lang = await getLanguageFunctions();
             lang = lang["fromLangFunc"];
-            console.log(lang);
             eval(lang);
         });
         await page.click(moreToLangButton);
         await page.waitFor(toLangListBlock);
         await page.evaluate(async () => {
             let lang = await getLanguageFunctions();
-            console.log(lang)
             lang = lang["toLangFunc"];
-            console.log(await getLanguageFunctions() + "test");
             eval(lang);
         });
         return configuration.msg.dev.code.OK_STATUS;
